@@ -1,0 +1,17 @@
+{
+  "Name": "Название",
+  "Partners": "Партнеры",
+  "Partner options": "Опции партнера",
+  "Partner type": "Тип партнера",
+  "Partner type id": "Тип партнера",
+  "Created at": "Время создания",
+  "Updated at": "Время изменения",
+  "Address": "Адрес",
+  "Schedule": "Расписание",
+  "Description": "Описание",
+  "Cashback description": "Описание кэшбэка",
+  "Logo": "Логотип",
+  "Images": "Изображения",
+  "Offers": "Предложения кэшбэка",
+  "Phone": "Телефон"
+}
