@@ -13,7 +13,7 @@ class PartnerController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = 1;
+        $perPage = 10;
         $page = $request->get('page', 1);
 
         $data = Partner::query()

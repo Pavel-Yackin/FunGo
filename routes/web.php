@@ -22,3 +22,4 @@ Route::get('/api/partners/{partnerId}', 'PartnerController@one');
 
 Route::get('/api/checks', 'CheckController@index');
 Route::get('/api/checks/{id}', 'CheckController@one');
+Route::post('/api/checks/create', 'CheckController@create');

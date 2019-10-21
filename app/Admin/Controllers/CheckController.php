@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Check;
+use App\Image;
 use App\Partner;
 use Encore\Admin\Admin;
 use Encore\Admin\Controllers\AdminController;
@@ -33,7 +34,7 @@ class CheckController extends AdminController
         $grid->column('partner.name', __('Partner'));
         $grid->column('status_string', __('Status'));
         $grid->column('sum', __('Sum'));
-        $grid->column('offer.type', __('Offer id'));
+        $grid->column('offer.type_string', __('Offer'));
         $grid->column('cashback_sum', __('Cashback sum'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
@@ -100,6 +101,14 @@ class CheckController extends AdminController
         $form->textarea('status_description', __('Status description'));
         $form->decimal('sum', __('Sum'));
         $form->decimal('cashback_sum', __('Cashback sum'));
+
+        $form->hasMany('images',
+            __('Images'),
+            function (Form\NestedForm $form) {
+                $form->image('path');
+                $form->hidden('object_type')->value(Image::TYPE_CHECK);
+            }
+        );
 
         $script = <<<SCRIPT
         $(document).on('select2:select', 'select.partner_id', function (event) {
