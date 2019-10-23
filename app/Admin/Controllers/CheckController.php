@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Check;
 use App\Image;
 use App\Partner;
+use App\PartnerType;
 use Encore\Admin\Admin;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -38,6 +39,12 @@ class CheckController extends AdminController
         $grid->column('cashback_sum', __('Cashback sum'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
+
+        $grid->filter(function ($filter) {
+            /** @var $filter Grid\Filter */
+            $filter->equal('partner_id', __('Partner'))->select(Partner::partnerList());
+            $filter->equal('status', __('Status'))->select(Check::statusList());
+        });
 
         return $grid;
     }
