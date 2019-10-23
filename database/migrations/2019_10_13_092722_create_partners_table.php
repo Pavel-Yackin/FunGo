@@ -16,7 +16,7 @@ class CreatePartnersTable extends Migration
         Schema::create('partners', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name', 511);
+            $table->string('name', 255)->charset('utf8')->collation('utf8_unicode_ci');
             $table->integer('partner_type_id', false, true)->nullable();
 
             $table->string('address', 1000)->nullable();
