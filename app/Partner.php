@@ -2,18 +2,34 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Class Partner
  * @package App
  */
-class Partner extends Model
+class Partner extends BaseModel
 {
-    /** @var string  */
+    /** @var array */
+    const HIDDEN = [
+        'partner_type_id',
+        'schedule',
+        'description',
+        'cashback_description',
+        'longitude',
+        'latitude',
+        'created_at',
+        'updated_at',
+
+        'start_date',
+        'finish_date',
+        'partner_id',
+        'type',
+        'value',
+    ];
+
+    /** @var string */
     protected $table = 'partners';
 
-    /** @var array  */
+    /** @var array */
     protected $fillable = [
         'name',
         'partner_type_id',
@@ -24,6 +40,20 @@ class Partner extends Model
         'cashback_description',
         'logo',
         'schedule',
+        'latitude',
+        'longitude',
+    ];
+
+    /** @var array */
+    protected $appends = [
+        'distance'
+    ];
+
+    /** @var array */
+    const SINGLE_HIDDEN = [
+        'partner_type_id',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -85,5 +115,27 @@ class Partner extends Model
         }
 
         return $result;
+    }
+
+    /**
+     * @return float|int|null
+     */
+    public function getDistanceAttribute()
+    {
+        $lat = request('latitude');
+        $long = request('longitude');
+
+        if ($lat && $long && $this->latitude && $this->longitude) {
+            $latFrom = deg2rad((float)$lat);
+            $lonFrom = deg2rad((float)$long);
+            $latTo = deg2rad($this->latitude);
+            $lonTo = deg2rad($this->longitude);
+
+            $lonDelta = $lonTo - $lonFrom;
+
+            return 6371000 * (acos(sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta)));
+        }
+
+        return null;
     }
 }

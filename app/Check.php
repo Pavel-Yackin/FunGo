@@ -2,13 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Class Check
  * @package App
  */
-class Check extends Model
+class Check extends BaseModel
 {
     /** @var int  */
     const STATUS_CHECKING = 1;

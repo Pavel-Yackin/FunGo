@@ -15,16 +15,15 @@ class CheckController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = 10;
         $page = $request->get('page', 1);
 
         $data = Check::query()
             ->with(['user', 'partner'])
-            ->limit($perPage)
-            ->offset(($page - 1) * $perPage)
-            ->get();
+            ->limit($this->perPage)
+            ->offset(($page - 1) * $this->perPage)
+            ->paginate();
 
-        return response()->json(['objects' => $data->toArray()], 200, ['Content-Type' => 'application/json; charset=UTF-8', 'charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);
+        return $this->makeCollectionResponse($data);
     }
 
     /**
@@ -44,12 +43,16 @@ class CheckController extends Controller
 
     public function create(Request $request)
     {
+        if ($request->hasFile('images')) {
+            abort(400, "No images");
+        }
+
         $check = new Check();
         $check->status = Check::STATUS_CHECKING;
         // TODO add user
         $check->user_id = 1;
-        $check->partner_id = $request->get('partner_id');
-        $check->offer_id = $request->get('offer_id');
+        $check->partner_id = null;
+        $check->offer_id = null;
         $check->saveOrFail();
 
         if ($request->hasFile('images')) {

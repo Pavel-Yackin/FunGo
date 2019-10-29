@@ -12,7 +12,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class CheckController extends AdminController
+class CheckCheckingController extends AdminController
 {
     /**
      * Title for current resource.
@@ -29,14 +29,14 @@ class CheckController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Check);
+        $grid->model()->where('status', '=', Check::STATUS_CHECKING);
 
         $grid->column('id', __('Id'));
         $grid->column('user.email', __('User'));
-        $grid->column('partner.name', __('Partner'));
         $grid->column('status_string', __('Status'));
-        $grid->column('sum', __('Sum'));
-        $grid->column('offer.type_string', __('Offer'));
-        $grid->column('cashback_sum', __('Cashback sum'));
+        $grid->column('images')->display(function ($pictures) {
+            return $pictures[0]['path']??null;
+        })->image();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 

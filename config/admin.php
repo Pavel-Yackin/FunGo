@@ -402,5 +402,16 @@ return [
             // default locale
             'default' => 'ru',
         ],
+        'latlong' => [
+            'enable' => true,
+            'default' => 'google',
+
+            // According to the selected provider above, fill in the corresponding api_key
+            'providers' => [
+                'google' => [
+                    'api_key' => 'AIzaSyBKSKLklE94T4FwzcikEPSGYkiuWDmPwog',
+                ],
+            ]
+        ]
     ],
 ];

@@ -2,17 +2,20 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Class PartnerType
  * @package App
  */
-class PartnerType extends Model
+class PartnerType extends BaseModel
 {
-    /** @var string  */
+    /** @var array */
+    const HIDDEN = [
+        'created_at',
+        'updated_at',
+    ];
+    /** @var string */
     protected $table = 'partner_types';
-    /** @var array  */
+    /** @var array */
     protected $fillable = [
         'title',
     ];

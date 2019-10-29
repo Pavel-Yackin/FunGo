@@ -2,24 +2,28 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Class PartnerOption
  * @package App
  */
-class PartnerOption extends Model
+class PartnerOption extends BaseModel
 {
-    /** @var string  */
+    /** @var string */
     const TYPE_KITCHEN = 'kitchen';
-    /** @var array  */
+    /** @var array */
     const LABELS = [
         'kitchen' => 'Кухня',
     ];
+    /** @var array */
+    const HIDDEN = [
+        'created_at',
+        'updated_at',
+        'pivot'
+    ];
 
-    /** @var string  */
+    /** @var string */
     protected $table = 'partner_options';
-    /** @var array  */
+    /** @var array */
     protected $fillable = [
         'type',
         'name',

@@ -2,23 +2,28 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Class Image
  * @package App
  */
-class Image extends Model
+class Image extends BaseModel
 {
-    /** @var int  */
+    /** @var int */
     const TYPE_PARTNER = 1;
-    /** @var int  */
+    /** @var int */
     const TYPE_CHECK = 2;
+    /** @var array */
+    const HIDDEN = [
+        'object_type',
+        'object_id',
+        'created_at',
+        'updated_at',
+    ];
 
-    /** @var string  */
+    /** @var string */
     protected $table = 'images';
 
-    /** @var array  */
+    /** @var array */
     protected $fillable = [
         'object_type',
         'object_id',

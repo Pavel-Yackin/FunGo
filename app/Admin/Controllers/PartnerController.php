@@ -12,7 +12,6 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
-use Illuminate\Support\Facades\App;
 
 class PartnerController extends AdminController
 {
@@ -112,6 +111,7 @@ class PartnerController extends AdminController
         $form->textarea('description', __('Description'));
         $form->textarea('cashback_description', __('Cashback description'));
         $form->image('logo', __('Logo'));
+        $form->latlong('latitude', 'longitude', 'Position');
 
         $form->hasMany('images',
             __('Images'),
@@ -123,15 +123,7 @@ class PartnerController extends AdminController
 
         $form->hasMany('offers', __('Offers'),
             function (Form\NestedForm $form) {
-                $form->select('type', __('Type'))
-                    ->options([
-                        Offer::BASE_OFFER_TYPE => 'Обычный кэшбэк',
-                        Offer::SPECIAL_OFFER_TYPE => 'Акционный кэшбэк',
-                        Offer::DATE_BASE_OFFER_TYPE => 'Кэшбэк на выбранный период',
-                    ])->addElementClass('offer-select');
-
-                $form->datetime('start_date', __('Start date'));
-                $form->datetime('finish_date', __('Finish date'));
+                $form->hidden('type')->value(Offer::BASE_OFFER_TYPE);
                 $form->text('description', __('Description'));
                 $form->decimal('value', __('Value'));
 

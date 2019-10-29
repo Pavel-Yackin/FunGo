@@ -8,18 +8,27 @@ use Illuminate\Database\Eloquent\Model;
  * Class Offer
  * @package App
  */
-class Offer extends Model
+class Offer extends BaseModel
 {
-    /** @var int  */
+    /** @var array */
+    const HIDDEN = [
+        'partner_id',
+        'type',
+        'start_date',
+        'finish_date',
+        'created_at',
+        'updated_at',
+    ];
+    /** @var int */
     const BASE_OFFER_TYPE = 1;
-    /** @var int  */
+    /** @var int */
     const SPECIAL_OFFER_TYPE = 2;
-    /** @var int  */
+    /** @var int */
     const DATE_BASE_OFFER_TYPE = 3;
 
-    /** @var string  */
+    /** @var string */
     protected $table = 'offers';
-    /** @var array  */
+    /** @var array */
     protected $fillable = [
         'partner_id',
         'type',
@@ -29,7 +38,7 @@ class Offer extends Model
         'value',
     ];
 
-    /** @var array  */
+    /** @var array */
     protected $appends = [
         'type_string'
     ];
