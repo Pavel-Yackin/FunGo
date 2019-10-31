@@ -35,9 +35,7 @@ class PartnerController extends Controller
             $query->where('name', 'like', '%'.$request->get('name').'%');
         }
 
-        if ($request->has('top')) {
-            $query->where('top', '=', 1);
-        }
+        $query->orderBy('top', 'desc');
 
         $sort = $request->get('sort');
         if ($sort == 'distance' && $this->latitude && $this->longitude) {

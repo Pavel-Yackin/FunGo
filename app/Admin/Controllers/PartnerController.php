@@ -42,7 +42,7 @@ class PartnerController extends AdminController
             /** @var $filter Grid\Filter */
             $filter->like('name', __('Name'));
             $filter->equal('top', __('Top'))->select([
-                '1' => "Топ заведение",
+                '1' => "Новое заведение",
                 '0' => "Обычное заведение"
             ]);
             $filter->equal('partner_type_id', __('Partner type'))->select(PartnerType::query()->pluck('title', 'id'));
