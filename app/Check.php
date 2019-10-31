@@ -28,6 +28,7 @@ class Check extends BaseModel
         'sum',
         'offer_id',
         'cashback_sum',
+        'number',
     ];
 
     protected $appends = [

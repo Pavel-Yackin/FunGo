@@ -37,11 +37,14 @@ class PartnerController extends AdminController
         $grid->column('phone', __('Phone'));
         $grid->column('mail', __('Mail'));
         $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
 
         $grid->filter(function ($filter) {
             /** @var $filter Grid\Filter */
             $filter->like('name', __('Name'));
+            $filter->equal('top', __('Top'))->select([
+                '1' => "Топ заведение",
+                '0' => "Обычное заведение"
+            ]);
             $filter->equal('partner_type_id', __('Partner type'))->select(PartnerType::query()->pluck('title', 'id'));
         });
 
@@ -98,7 +101,7 @@ class PartnerController extends AdminController
             $partnerOptionsSet[$partnerOption->id] = $value;
         }
 
-        $form->text('name', __('Name'));
+        $form->text('name', __('Name'))->required();
         $form->select('partner_type_id', __('Partner type id'))->options(
             PartnerType::query()->pluck('title', 'id')
         );
@@ -108,6 +111,7 @@ class PartnerController extends AdminController
         $form->textarea('schedule', __('Schedule'));
         $form->mobile('phone', __('Phone'))->options(['mask' => '(999)9999999']);
         $form->email('mail', __('Mail'));
+        $form->switch('top', __('Top'));
         $form->textarea('description', __('Description'));
         $form->textarea('cashback_description', __('Cashback description'));
         $form->image('logo', __('Logo'));

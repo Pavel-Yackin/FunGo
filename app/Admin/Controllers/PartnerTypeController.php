@@ -31,6 +31,10 @@ class PartnerTypeController extends AdminController
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
+        $grid->actions(function ($actions) {
+            $actions->disableDelete();
+        });
+
         return $grid;
     }
 

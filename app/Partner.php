@@ -42,6 +42,7 @@ class Partner extends BaseModel
         'schedule',
         'latitude',
         'longitude',
+        'top',
     ];
 
     /** @var array */

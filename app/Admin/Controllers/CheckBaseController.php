@@ -109,7 +109,11 @@ class CheckBaseController extends AdminController
 
         $form->hidden('user_id')->value(1);
         $form->select('partner_id', __('Partner id'))
-            ->options(Partner::partnerList());
+            ->options(Partner::partnerList())
+            ->required();
+        $form->text('number', __('Number'))->required()
+            ->creationRules(["unique:checks,number"])
+            ->updateRules(["unique:checks,number,{{id}}"]);;
         $form->select('offer_id', __('Offer id'))->options($modelOptions);
         $form->select('status', __('Status'))
             ->options(Check::statusList())
