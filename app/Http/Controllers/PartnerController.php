@@ -42,8 +42,9 @@ class PartnerController extends Controller
             $sf = pi()/180;
             $query->orderBy(DB::raw("ACOS(SIN(latitude*$sf)*SIN({$this->latitude}*$sf) + COS(latitude*$sf)*COS({$this->latitude}*$sf)*COS((longitude-{$this->longitude})*$sf))"));
         } elseif ($sort == 'cashback') {
+            $query->select(DB::raw('partners.*'));
             $query->leftJoin('offers', 'offers.partner_id', '=', 'partners.id');
-            $query->orderBy('offers.value');
+            $query->orderBy('offers.value', 'desc');
         }
 
         $data = $query->paginate();

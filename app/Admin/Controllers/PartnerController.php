@@ -76,6 +76,7 @@ class PartnerController extends AdminController
         $show->field('description', __('Description'));
         $show->field('cashback_description', __('Cashback description'));
         $show->field('logo', __('Logo'))->image();
+        $show->field('min_check', __('Min check'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -112,6 +113,7 @@ class PartnerController extends AdminController
         $form->mobile('phone', __('Phone'))->options(['mask' => '(999)9999999']);
         $form->email('mail', __('Mail'));
         $form->switch('top', __('Top'));
+        $form->decimal('min_check', __('Min Check'));
         $form->textarea('description', __('Description'));
         $form->textarea('cashback_description', __('Cashback description'));
         $form->image('logo', __('Logo'));

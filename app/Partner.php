@@ -43,6 +43,7 @@ class Partner extends BaseModel
         'latitude',
         'longitude',
         'top',
+        'min_check',
     ];
 
     /** @var array */
