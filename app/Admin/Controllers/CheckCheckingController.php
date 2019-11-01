@@ -36,9 +36,8 @@ class CheckCheckingController extends AdminController
         $grid->column('status_string', __('Status'));
         $grid->column('images')->display(function ($pictures) {
             return $pictures[0]['path']??null;
-        })->image();
+        })->image('', 400, 400)->width(400);
         $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
 
         $grid->filter(function ($filter) {
             /** @var $filter Grid\Filter */
