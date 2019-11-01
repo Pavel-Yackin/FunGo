@@ -75,7 +75,7 @@ class Check extends BaseModel
     {
         return [
             self::STATUS_CHECKING => 'В обработке',
-            self::STATUS_ACCEPTED => 'Принят',
+            self::STATUS_ACCEPTED => 'На проверке',
             self::STATUS_DECLINED => 'Отклонен',
             self::STATUS_READY_TO_PAY => 'К выплате',
             self::STATUS_PAYED => 'Начислено',
