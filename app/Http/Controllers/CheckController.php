@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use App\Check;
 use App\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CheckController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('auth:api');
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -19,6 +26,7 @@ class CheckController extends Controller
 
         $data = Check::query()
             ->with(['user', 'partner'])
+            ->where('user_id', '=', Auth::id())
             ->limit($this->perPage)
             ->offset(($page - 1) * $this->perPage)
             ->paginate();
@@ -34,6 +42,7 @@ class CheckController extends Controller
     {
         $partner = Check::query()
             ->where('id', $id)
+            ->where('user_id', '=', Auth::id())
             ->with(['user', 'partner'])
             ->first();
 
@@ -41,16 +50,21 @@ class CheckController extends Controller
         return response()->json(['object' => $partner ? $partner->toArray():[]], 200, ['Content-Type' => 'application/json; charset=UTF-8', 'charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws \Throwable
+     */
     public function create(Request $request)
     {
         if ($request->hasFile('images')) {
-            abort(400, "No images");
+            abort(400, "api|no_images");
         }
 
         $check = new Check();
         $check->status = Check::STATUS_CHECKING;
-        // TODO add user
-        $check->user_id = 1;
+        $check->user_id = Auth::id();
         $check->partner_id = null;
         $check->offer_id = null;
         $check->saveOrFail();

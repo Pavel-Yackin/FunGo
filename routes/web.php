@@ -23,3 +23,7 @@ Route::get('/api/partners/{partnerId}', 'PartnerController@one');
 Route::get('/api/checks', 'CheckController@index');
 Route::get('/api/checks/{id}', 'CheckController@one');
 Route::post('/api/checks/create', 'CheckController@create');
+
+Route::post('/api/users/signup', 'UserController@signup');
+Route::post('/api/users/signin', 'UserController@signin');
+Route::post('/api/users/update-password', 'UserController@updatePassword');

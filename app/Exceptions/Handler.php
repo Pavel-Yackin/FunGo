@@ -46,6 +46,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if (strpos($exception->getMessage(), 'api|') !== false) {
+            $message = str_replace('api|', '', $exception->getMessage());
+
+            if ($this->isHttpException($exception)) {
+                $code = $exception->getStatusCode();
+            }
+
+            return response()->json(['error' => $message], $code ?? 400);
+        }
         return parent::render($request, $exception);
     }
 }

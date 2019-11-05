@@ -13,6 +13,7 @@ class PartnerController extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $this->latitude = \request('latitude');
         $this->longitude = \request('longitude');
     }
